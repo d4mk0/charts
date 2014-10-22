@@ -1,1 +1,15 @@
-.btn.btn.btn-success Make chart
+.col-md-5.col-lg-5
+  .panel.panel-info
+    .panel-heading
+      h4 Доля ответов
+    .panel-body= pie_chart [["Football", 10], ["Basketball", 5]], height: '200px'
+.col-md-7.col-lg-7
+  .panel.panel-info
+    .panel-heading
+      h4 Динамика оценок
+    .panel-body= line_chart DataItem.line_chart_by_stores
+.col-md-5.col-lg-5
+  .panel.panel-info
+    .panel-heading
+      h4 Итоговый статус
+    .panel-body= column_chart [["Football", 10], ["Basketball", 5]], height: '200px'
