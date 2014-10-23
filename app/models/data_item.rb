@@ -56,5 +56,4 @@ class DataItem < ActiveRecord::Base
     h
   end
 
-
 end
