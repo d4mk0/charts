@@ -23,23 +23,19 @@ html lang="en"
 
   body
     .navbar.navbar-default.navbar-static-top
-        .container
-          button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse"
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand href="#"Charts
-          .navbar-collapse.collapse.navbar-responsive-collapse
-            ul.nav.navbar-nav
-              li= link_to "Link 1", "/path1"
-              li= link_to "Link 2", "/path2"
-              li= link_to "Link 3", "/path3"
+      .container
+        button.navbar-toggle type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse"
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand href="#"Charts
+        .navbar-collapse.collapse.navbar-responsive-collapse
+          ul.nav.navbar-nav
 
     .container
       .row
-        .col-lg-9
-          = bootstrap_flash
-          = yield
+        = bootstrap_flash
+        = yield
 
       / footer
         / p &copy; d4mk0 2014
