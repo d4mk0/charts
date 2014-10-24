@@ -13,3 +13,9 @@
     .panel-heading
       h4 Итоговый статус
     .panel-body= column_chart DataItem.group(:status).count
+.col-md-7.col-lg-7
+  .panel.panel-info
+    .panel-heading
+      h4 Настройки
+    .panel-body
+      #slider
