@@ -17,4 +17,5 @@
 //= require turbolinks
 //= require jQDateRangeSlider-min
 //= require paloma
+//= require jquery.cookie
 //= require_tree ./controllers

@@ -32,21 +32,21 @@ class DataItem < ActiveRecord::Base
     end
   end
 
-  def self.line_chart_by_stores
-    uniq.pluck(:store).sort.map do |s|
-      hash = where(store: s).group_by_day(:date).count
+  def self.line_chart_by_stores(cookies)
+    by_cookies(cookies).uniq.pluck(:store).sort.map do |s|
+      hash = by_cookies(cookies).where(store: s).group_by_day(:date).count
       new_hash = {}
       hash.each do |time,_|
         time = time.strftime("%Y-%m-%d")
-        a = where(store: s, date: time).pluck(:rating).compact
+        a = by_cookies(cookies).where(store: s, date: time).pluck(:rating).compact
         new_hash[time] = a.inject{ |sum, el| sum + el }.to_f / a.size
       end
       {name: s, data: new_hash}
     end
   end
 
-  def self.part_of_answers
-    h = DataItem.group(:criterion).count
+  def self.part_of_answers(cookies)
+    h = by_cookies(cookies).group(:criterion).count
     h['Yes'] = h[true]
     h.delete(true)
     h['No'] = h[false]
@@ -54,6 +54,17 @@ class DataItem < ActiveRecord::Base
     h['Unknown'] = h[nil]
     h.delete(nil)
     h
+  end
+
+  def self.by_cookies(cookies)
+    date_min = Date.parse cookies[:date_min] || minimum(:date).to_s
+    date_max = Date.parse cookies[:date_max] || maximum(:date).to_s
+    stores = cookies[:stores].present? ? cookies[:stores].split(',') : []
+
+    scope = all
+    scope = scope.where(date: date_min..date_max) if date_min.present? && date_max.present?
+    scope = scope.where(store: stores) if stores.present?
+    scope
   end
 
 end

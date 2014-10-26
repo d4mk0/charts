@@ -2,20 +2,25 @@
   .panel.panel-info
     .panel-heading
       h4 Доля ответов
-    .panel-body= pie_chart DataItem.part_of_answers
+    .panel-body= pie_chart part_answers_path
 .col-md-7.col-lg-7
   .panel.panel-info
     .panel-heading
       h4 Динамика оценок
-    .panel-body= line_chart DataItem.line_chart_by_stores, min: 5, max: 10
+    .panel-body= line_chart dynamic_path, min: 5, max: 10
 .col-md-5.col-lg-5
   .panel.panel-info
     .panel-heading
       h4 Итоговый статус
-    .panel-body= column_chart DataItem.group(:status).count
+    .panel-body= column_chart part_path
 .col-md-7.col-lg-7
   .panel.panel-info
     .panel-heading
       h4 Настройки
     .panel-body
       #slider
+      #selects
+        - DataItem.uniq.order(:store).pluck(:store).each do |s|
+          p
+            = check_box_tag s, s, @selected_stores.include?(s)
+            = label_tag s
